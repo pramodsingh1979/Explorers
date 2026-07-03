@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explorers — Online CBSE Classes, KG to Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EC;
+    --paper-2:#F3ECDC;
+    --ink:#22314B;
+    --ink-soft:#5B6A82;
+    --green:#2F6F4E;
+    --green-soft:#E4EFE8;
+    --yellow:#F4B400;
+    --yellow-soft:#FDF1D3;
+    --coral:#E85A4B;
+    --coral-soft:#FBE4E1;
+    --sky:#4A90D9;
+    --sky-soft:#E5EFFA;
+    --line:#D8CDB5;
+    --radius:18px;
+    --shadow: 0 10px 30px rgba(34,49,75,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif; font-weight:700; margin:0;}
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;}
+  img,svg{display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .dashed{border-top:2px dashed var(--line);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,246,236,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:2px dashed var(--line);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Baloo 2'; font-weight:800; font-size:1.35rem; text-decoration:none; cursor:pointer;}
+  .logo:hover{opacity:0.85;}
+  .logo:focus-visible{outline:3px solid var(--sky); outline-offset:3px; border-radius:8px;}
+  .logo .mark{width:38px; height:38px;}
+  .navlinks{display:flex; gap:28px; font-weight:600; font-size:0.95rem;}
+  .navlinks a{text-decoration:none; color:var(--ink-soft); padding:6px 2px; border-bottom:2px solid transparent; transition:.2s;}
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--ink); border-color:var(--coral);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Inter'; font-weight:700; font-size:0.95rem;
+    padding:12px 22px; border-radius:100px; border:2px solid var(--ink);
+    background:var(--coral); color:#fff; cursor:pointer;
+    text-decoration:none; transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  .btn:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink);}
+  .btn:active{transform:translate(0,0); box-shadow:2px 2px 0 var(--ink);}
+  .btn:focus-visible{outline:3px solid var(--sky); outline-offset:2px;}
+  .btn.ghost{background:transparent; color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.85rem; box-shadow:3px 3px 0 var(--ink);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:64px 0 40px;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--yellow-soft); color:#8a6400; border:1.5px solid var(--yellow);
+    padding:6px 14px; border-radius:100px; font-weight:700; font-size:0.8rem;
+    letter-spacing:.03em; margin-bottom:18px;
+  }
+  .hero h1{font-size:3.1rem; line-height:1.08; letter-spacing:-0.01em;}
+  .hero h1 .accent{color:var(--green); position:relative; display:inline-block;}
+  .hero p.lead{margin-top:18px; font-size:1.13rem; color:var(--ink-soft); max-width:46ch;}
+  .hero-ctas{display:flex; gap:14px; margin-top:28px; flex-wrap:wrap;}
+  .hero-note{margin-top:16px; font-size:0.85rem; color:var(--ink-soft);}
+
+  /* timetable widget */
+  .tt-card{
+    background:#fff; border:2px solid var(--ink); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:22px; position:relative;
+  }
+  .tt-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+  .tt-title{font-family:'Baloo 2'; font-weight:700; font-size:1.05rem;}
+  .tt-sub{font-size:0.78rem; color:var(--ink-soft);}
+  .subject-picker{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .chip{
+    border:1.5px solid var(--ink); border-radius:100px; padding:7px 13px;
+    font-size:0.8rem; font-weight:700; cursor:pointer; background:#fff;
+    display:flex; align-items:center; gap:6px; transition:.15s;
+    user-select:none;
+  }
+  .chip.active{color:#fff; border-color:transparent;}
+  .chip:focus-visible{outline:3px solid var(--sky); outline-offset:2px;}
+  .tt-grid{
+    display:grid; grid-template-columns:repeat(6, 1fr); gap:6px;
+  }
+  .tt-day{
+    background:var(--paper-2); border-radius:10px; padding:8px 6px; min-height:96px;
+    border:1.5px dashed var(--line);
+  }
+  .tt-day .dname{font-family:'Space Mono'; font-size:0.7rem; font-weight:700; color:var(--ink-soft); text-align:center; display:block; margin-bottom:6px;}
+  .tt-pill{
+    font-size:0.62rem; font-weight:700; color:#fff; border-radius:6px;
+    padding:4px 5px; margin-bottom:4px; text-align:center; line-height:1.15;
+    animation:pop .28s ease;
+  }
+  @keyframes pop{from{transform:scale(.7); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .tt-empty{font-size:0.65rem; color:#B9AF98; text-align:center; margin-top:24px;}
+  .tt-footer{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:16px; padding-top:14px; border-top:2px dashed var(--line);
+  }
+  .price-line{font-family:'Space Mono'; font-size:0.85rem; color:var(--ink-soft);}
+  .price-total{font-family:'Space Mono'; font-weight:700; font-size:1.5rem; color:var(--green);}
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust{padding:36px 0; border-top:2px dashed var(--line); border-bottom:2px dashed var(--line);}
+  .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .trust-item{display:flex; gap:12px; align-items:flex-start;}
+  .trust-item .ic{width:34px; height:34px; flex:0 0 auto;}
+  .trust-item h4{font-family:'Inter'; font-weight:700; font-size:0.92rem; margin-bottom:3px;}
+  .trust-item p{font-size:0.82rem; color:var(--ink-soft); margin:0;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:78px 0;}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:2.2rem; letter-spacing:-0.01em;}
+  .section-head p{color:var(--ink-soft); margin-top:12px; font-size:1.02rem;}
+
+  /* ---------- SUBJECTS ---------- */
+  .subject-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .subject-card{
+    background:#fff; border:2px solid var(--ink); border-radius:16px; padding:22px;
+    box-shadow:4px 4px 0 rgba(34,49,75,0.12);
+    transition:transform .18s ease, box-shadow .18s ease; cursor:default;
+  }
+  .subject-card:hover{transform:translateY(-5px); box-shadow:4px 10px 0 rgba(34,49,75,0.16);}
+  .subject-card .ic-wrap{
+    width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    margin-bottom:14px;
+  }
+  .subject-card h3{font-size:1.05rem; margin-bottom:6px;}
+  .subject-card p{font-size:0.83rem; color:var(--ink-soft); margin:0;}
+  .subject-card .tag{
+    display:inline-block; margin-top:10px; font-size:0.68rem; font-weight:700;
+    color:var(--ink-soft); font-family:'Space Mono';
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:step;}
+  .step{position:relative; padding-top:8px;}
+  .step .num{
+    font-family:'Space Mono'; font-weight:700; font-size:0.85rem; color:#fff;
+    background:var(--ink); width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+  }
+  .step h4{font-size:1.02rem; margin-bottom:6px;}
+  .step p{font-size:0.85rem; color:var(--ink-soft); margin:0;}
+  .step-line{position:absolute; top:16px; left:70%; width:60%; height:2px; background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);}
+  .step:last-child .step-line{display:none;}
+
+  /* ---------- ENROLL FORM ---------- */
+  .enroll-panel{
+    background:#fff; border:2px solid var(--ink); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:36px; display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  }
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:0.82rem; font-weight:700; margin-bottom:6px; color:var(--ink);}
+  .field input, .field select{
+    width:100%; padding:11px 13px; border:1.5px solid var(--line); border-radius:10px;
+    font-family:'Inter'; font-size:0.92rem; background:var(--paper-2); color:var(--ink);
+  }
+  .field input:focus, .field select:focus{outline:2.5px solid var(--sky); outline-offset:1px; background:#fff;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .subject-select-list{display:flex; flex-direction:column; gap:10px; margin-top:6px;}
+  .subj-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border:1.5px solid var(--line); border-radius:12px; padding:10px 14px; background:var(--paper-2);
+  }
+  .subj-row.checked{border-color:var(--ink); background:#fff;}
+  .subj-row .left{display:flex; align-items:center; gap:10px; font-weight:600; font-size:0.9rem;}
+  .subj-row .dot{width:12px; height:12px; border-radius:50%;}
+  .days-stepper{display:flex; align-items:center; gap:8px; font-family:'Space Mono'; font-size:0.85rem;}
+  .stepper-btn{
+    width:26px; height:26px; border-radius:50%; border:1.5px solid var(--ink); background:#fff;
+    cursor:pointer; font-weight:700; display:flex; align-items:center; justify-content:center;
+  }
+  .stepper-btn:hover{background:var(--ink); color:#fff;}
+  .summary-box{background:var(--green-soft); border:1.5px solid var(--green); border-radius:14px; padding:20px; margin-top:18px;}
+  .summary-row{display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;}
+  .summary-total{display:flex; justify-content:space-between; font-family:'Space Mono'; font-weight:700; font-size:1.3rem; margin-top:10px; padding-top:10px; border-top:1.5px dashed var(--green);}
+  .disclaimer{font-size:0.72rem; color:var(--ink-soft); margin-top:12px; line-height:1.5;}
+
+  /* ---------- REPORT PREVIEW ---------- */
+  .report-wrap{display:grid; grid-template-columns:0.9fr 1.1fr; gap:44px; align-items:center;}
+  .email-card{
+    background:#fff; border:2px solid var(--ink); border-radius:16px; box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .email-head{background:var(--ink); color:#fff; padding:14px 20px; font-family:'Space Mono'; font-size:0.75rem;}
+  .email-body{padding:24px;}
+  .email-body h4{font-family:'Baloo 2'; font-size:1.15rem; margin-bottom:4px;}
+  .email-body .meta{font-size:0.78rem; color:var(--ink-soft); margin-bottom:16px;}
+  .report-block{background:var(--paper-2); border-radius:10px; padding:14px 16px; margin-bottom:10px;}
+  .report-block .lbl{font-family:'Space Mono'; font-size:0.68rem; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.04em;}
+  .report-block p{margin:6px 0 0; font-size:0.86rem;}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:2px dashed var(--line); padding:20px 0;}
+  .faq-q{display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:700; font-size:0.98rem;}
+  .faq-q .plus{font-family:'Space Mono'; font-size:1.2rem; transition:transform .2s;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease; font-size:0.88rem; color:var(--ink-soft);}
+  .faq-item.open .faq-a{max-height:200px; margin-top:10px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:#fff; padding:56px 0 28px; margin-top:40px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px; margin-bottom:40px;}
+  footer .logo{color:#fff;}
+  footer p{color:#B8C1D1; font-size:0.86rem; margin-top:10px; max-width:32ch;}
+  footer h5{font-size:0.82rem; text-transform:uppercase; letter-spacing:.05em; color:#8695AF; margin-bottom:14px;}
+  footer ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+  footer a{text-decoration:none; color:#D6DCE8; font-size:0.9rem;}
+  footer a:hover{color:#fff;}
+  .footer-bottom{border-top:1px solid #3A4A66; padding-top:20px; font-size:0.78rem; color:#8695AF; display:flex; justify-content:space-between;}
+
+  /* ---------- MODAL ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(34,49,75,0.55); display:none;
+    align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{background:#fff; border-radius:18px; max-width:440px; width:100%; padding:30px; border:2px solid var(--ink); box-shadow:var(--shadow);}
+  .modal h3{font-size:1.3rem; margin-bottom:12px;}
+  .modal p{font-size:0.9rem; color:var(--ink-soft); margin-bottom:18px;}
+  .modal .btn{width:100%; justify-content:center;}
+
+  @media (max-width:900px){
+    .hero-grid, .report-wrap, .enroll-panel{grid-template-columns:1fr;}
+    .subject-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:1fr 1fr;}
+    .trust-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .navlinks{display:none;}
+    .hero h1{font-size:2.2rem;}
+    .tt-grid{grid-template-columns:repeat(3,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="index.html" aria-label="Explorers home — reloads the page">
+        <svg class="mark" viewBox="0 0 40 40" fill="none">
+          <rect x="4" y="8" width="32" height="24" rx="4" fill="#2F6F4E"/>
+          <path d="M4 14h32" stroke="#FBF6EC" stroke-width="2"/>
+          <circle cx="20" cy="10" r="3.2" fill="#F4B400" stroke="#22314B" stroke-width="1.4"/>
+          <path d="M11 22h6M11 26h10" stroke="#FBF6EC" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Explorers
+      </a>
+      <div class="navlinks">
+        <a href="#subjects">Subjects</a>
+        <a href="#how">How it works</a>
+        <a href="#enroll">Enroll</a>
+        <a href="#reports">Reports</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="#enroll" class="btn small">Enroll Now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">● Live · 60-minute classes · KG to Grade 5</span>
+      <h1>Live CBSE classes<br>your kid actually<br>looks forward to<span class="accent">.</span></h1>
+      <p class="lead">Trained teachers, small live sessions, and a short report emailed to you after every class — so you always know exactly what was taught today.</p>
+      <div class="hero-ctas">
+        <a href="#enroll" class="btn">Build my child's week</a>
+        <a href="#how" class="btn ghost">See how it works</a>
+      </div>
+      <p class="hero-note">No app to install — classes run in your browser. Cancel or change subjects anytime.</p>
+    </div>
+
+    <div class="tt-card">
+      <div class="tt-head">
+        <div>
+          <div class="tt-title">Build Your Week</div>
+          <div class="tt-sub">Tap a subject, then set how many days a week</div>
+        </div>
+      </div>
+      <div class="subject-picker" id="subjectPicker"></div>
+      <div class="tt-grid" id="ttGrid"></div>
+      <div class="tt-footer">
+        <div class="price-line" id="classCountLine">0 classes / week selected</div>
+        <div>
+          <span class="mono" style="font-size:0.75rem;color:var(--ink-soft);">≈ / month</span><br>
+          <span class="price-total" id="priceTotal">₹0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap trust-grid">
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#2F6F4E" stroke-width="1.8"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="#2F6F4E" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <div><h4>Trained CBSE teachers</h4><p>Every session is planned and led by a subject teacher, not a script.</p></div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#4A90D9" stroke-width="1.8"/><path d="M3 9h18" stroke="#4A90D9" stroke-width="1.8"/></svg>
+      <div><h4>60-minute live sessions</h4><p>Focused, age-appropriate class length — not a long screen-time slog.</p></div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v13H8l-4 4V4z" stroke="#E85A4B" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <div><h4>Daily report to your inbox</h4><p>A short note on what was taught, sent after every single class.</p></div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#F4B400" stroke-width="1.8"/><path d="M3 10h18" stroke="#F4B400" stroke-width="1.8"/></svg>
+      <div><h4>Every transaction tracked</h4><p>Invoices emailed to you and kept on file, so nothing gets lost.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="subjects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Subjects</span>
+      <h2>Every core CBSE subject, one at a time or all together.</h2>
+      <p>Enroll for a single subject or mix and match — each one is billed and scheduled on its own.</p>
+    </div>
+    <div class="subject-grid" id="subjectGrid"></div>
+  </div>
+</section>
+
+<section class="section dashed" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>From sign-up to the first class, in four steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h4>Pick subjects &amp; days</h4><p>Choose one subject or several, and set how many days a week for each — 2 is the default.</p><div class="step-line"></div></div>
+      <div class="step"><div class="num">2</div><h4>Enroll &amp; pay</h4><p>Fill in your child's details and complete payment. Your price updates automatically as you choose.</p><div class="step-line"></div></div>
+      <div class="step"><div class="num">3</div><h4>Attend live classes</h4><p>60-minute live sessions with a trained teacher, on the schedule you picked.</p><div class="step-line"></div></div>
+      <div class="step"><div class="num">4</div><h4>Get a report, every day</h4><p>After each class, a short summary of what was taught lands in your inbox.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="enroll">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Enroll</span>
+      <h2>Set up your child's schedule.</h2>
+      <p>Prices below are a placeholder rate for this demo — you'll set your real pricing before going live.</p>
+    </div>
+
+    <div class="enroll-panel">
+      <div>
+        <div class="row2">
+          <div class="field"><label for="parentName">Parent name</label><input id="parentName" type="text" placeholder="e.g. Anita Sharma"></div>
+          <div class="field"><label for="parentEmail">Parent email</label><input id="parentEmail" type="email" placeholder="you@example.com"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="kidName">Child's name</label><input id="kidName" type="text" placeholder="e.g. Aarav"></div>
+          <div class="field"><label for="grade">Grade</label>
+            <select id="grade">
+              <option>KG</option><option>Grade 1</option><option>Grade 2</option>
+              <option>Grade 3</option><option>Grade 4</option><option>Grade 5</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="phone">Phone number</label><input id="phone" type="tel" placeholder="10-digit mobile number"></div>
+
+        <label style="display:block; font-size:0.82rem; font-weight:700; margin:22px 0 8px;">Subjects &amp; days per week</label>
+        <div class="subject-select-list" id="enrollSubjectList"></div>
+      </div>
+
+      <div>
+        <div class="summary-box">
+          <h3 style="font-family:'Baloo 2'; font-size:1.15rem; margin-bottom:14px;">Order summary</h3>
+          <div id="summaryLines"></div>
+          <div class="summary-total"><span>Estimated / month</span><span id="summaryTotal">₹0</span></div>
+        </div>
+        <p class="disclaimer">This is a working demo calculator. In the live version, this total is confirmed by a real payment gateway (e.g. Razorpay/Instamojo) before your card or UPI is charged, and a receipt + invoice is emailed to you and stored in our records.</p>
+        <button class="btn" style="width:100%; justify-content:center; margin-top:16px;" id="payBtn">Proceed to payment</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dashed" id="reports">
+  <div class="wrap report-wrap">
+    <div>
+      <span class="eyebrow">Reports</span>
+      <h2 style="font-size:2.1rem;">A short note home, after every class.</h2>
+      <p style="color:var(--ink-soft); margin-top:14px; font-size:1rem;">No wondering what happened in class today. Within a couple of hours of each session, you get a short email: what was taught, how your child did, and what to look out for tomorrow.</p>
+    </div>
+    <div class="email-card">
+      <div class="email-head">To: parent@example.com &nbsp;·&nbsp; Subject: Today's class summary — Mathematics, Grade 3</div>
+      <div class="email-body">
+        <h4>Aarav's class today</h4>
+        <div class="meta">Mathematics · Grade 3 · Wed, 60 minutes · Teacher: Ms. Rao</div>
+        <div class="report-block"><span class="lbl">Topic covered</span><p>Multiplication of 2-digit numbers, with word problems.</p></div>
+        <div class="report-block"><span class="lbl">How Aarav did</span><p>Confident with the method; needs a bit more practice on carrying over.</p></div>
+        <div class="report-block"><span class="lbl">For tomorrow</span><p>10 practice sums shared on the portal — no new topic.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Good to know</h2>
+    </div>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">Explorers</div>
+        <p>Live, teacher-led CBSE classes for KG to Grade 5 — one subject or many, on a schedule you choose.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul><li><a href="#subjects">Subjects</a></li><li><a href="#how">How it works</a></li><li><a href="#enroll">Enroll</a></li><li><a href="#reports">Sample report</a></li></ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul><li><a href="#faq">FAQ</a></li><li><a href="#">Contact us</a></li><li>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul><li>explorers@gmail.com</li><li>+91 9999323479</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Explorers.site.</span>
+      <span>Made for parents who want to know what happened in class today.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>This is a demo checkout</h3>
+    <p>In this prototype, no real payment is taken. To go live, this button needs to be connected to a real payment gateway (for example Razorpay or Instamojo, both offer a test/sandbox mode to start free) that confirms payment before saving the enrollment.</p>
+    <button class="btn" id="modalClose">Got it</button>
+  </div>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const SUBJECTS = [
+  {id:'eng',  name:'English',        color:'#4A90D9', short:'ENG', desc:'Reading, grammar and confident speaking.'},
+  {id:'hin',  name:'Hindi',          color:'#E85A4B', short:'HIN', desc:'Vyakaran, vaachan aur kahaniyan.'},
+  {id:'math', name:'Mathematics',    color:'#2F6F4E', short:'MAT', desc:'Number sense, tables and problem solving.'},
+  {id:'evs',  name:'EVS',            color:'#F4B400', short:'EVS', desc:'The world around us, made hands-on.'},
+  {id:'sci',  name:'Science',        color:'#8B5FBF', short:'SCI', desc:'Curiosity-first science for Grades 3-5.'},
+  {id:'comp', name:'Computer Basics',color:'#2AA8A0', short:'CMP', desc:'Typing, logic and first steps in coding.'},
+ 
+];
+const PRICE_PER_CLASS = 1000; // ⚠ placeholder rate — replace with your real per-class price
+const DAY_NAMES = ['Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAY_PATTERNS = {
+  1:[2], 2:[0,3], 3:[0,2,4], 4:[0,1,3,4], 5:[0,1,2,3,4], 6:[0,1,2,3,4,5]
+};
+
+/* ---------------- HERO WIDGET STATE ---------------- */
+let heroSelection = {}; // {subjectId: daysCount}
+
+function renderSubjectPicker(){
+  const el = document.getElementById('subjectPicker');
+  el.innerHTML = SUBJECTS.map(s => `
+    <div class="chip" tabindex="0" role="button" aria-pressed="false" data-id="${s.id}"
+         style="--c:${s.color}">${s.name}</div>
+  `).join('');
+  el.querySelectorAll('.chip').forEach(chip=>{
+    const toggle = ()=>{
+      const id = chip.dataset.id;
+      if(heroSelection[id]){ delete heroSelection[id]; }
+      else{ heroSelection[id] = 2; }
+      renderAll();
+    };
+    chip.addEventListener('click', toggle);
+    chip.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); }});
+  });
+}
+
+function renderTimetable(){
+  const grid = document.getElementById('ttGrid');
+  const cells = DAY_NAMES.map((d,i)=>({name:d, items:[]}));
+  let totalClasses = 0;
+  Object.entries(heroSelection).forEach(([id,days])=>{
+    const subj = SUBJECTS.find(s=>s.id===id);
+    const pattern = DAY_PATTERNS[days] || DAY_PATTERNS[2];
+    pattern.forEach(dayIdx=>{
+      cells[dayIdx].items.push(subj);
+      totalClasses++;
+    });
+  });
+  grid.innerHTML = cells.map(c=>`
+    <div class="tt-day">
+      <span class="dname">${c.name}</span>
+      ${c.items.length ? c.items.map(s=>`<div class="tt-pill" style="background:${s.color}">${s.short}</div>`).join('') : '<div class="tt-empty">—</div>'}
+    </div>
+  `).join('');
+
+  document.getElementById('classCountLine').textContent = `${totalClasses} class${totalClasses!==1?'es':''} / week selected`;
+  const monthly = totalClasses * 4 * PRICE_PER_CLASS;
+  document.getElementById('priceTotal').textContent = `₹${monthly.toLocaleString('en-IN')}`;
+}
+
+/* update chip visuals */
+function refreshChipStyles(){
+  document.querySelectorAll('#subjectPicker .chip').forEach(chip=>{
+    const id = chip.dataset.id;
+    const subj = SUBJECTS.find(s=>s.id===id);
+    if(heroSelection[id]){
+      chip.classList.add('active');
+      chip.style.background = subj.color;
+      chip.setAttribute('aria-pressed','true');
+    }else{
+      chip.classList.remove('active');
+      chip.style.background = '#fff';
+      chip.setAttribute('aria-pressed','false');
+    }
+  });
+}
+
+function renderAll(){
+  refreshChipStyles();
+  renderTimetable();
+}
+
+/* ---------------- SUBJECT GRID (browse section) ---------------- */
+function renderSubjectGrid(){
+  const el = document.getElementById('subjectGrid');
+  el.innerHTML = SUBJECTS.map(s=>`
+    <div class="subject-card">
+      <div class="ic-wrap" style="background:${s.color}22;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="${s.color}" stroke-width="1.8"/></svg>
+      </div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <span class="tag">KG – GRADE 5</span>
+    </div>
+  `).join('');
+}
+
+/* ---------------- ENROLL FORM ---------------- */
+let enrollSelection = {}; // {subjectId: daysCount}
+
+function renderEnrollList(){
+  const el = document.getElementById('enrollSubjectList');
+  el.innerHTML = SUBJECTS.map(s=>{
+    const checked = enrollSelection[s.id] !== undefined;
+    const days = enrollSelection[s.id] || 2;
+    return `
+      <div class="subj-row ${checked?'checked':''}" data-id="${s.id}">
+        <div class="left">
+          <input type="checkbox" ${checked?'checked':''} data-check="${s.id}">
+          <span class="dot" style="background:${s.color}"></span>
+          ${s.name}
+        </div>
+        <div class="days-stepper" ${checked?'':'style="visibility:hidden"'}>
+          <button class="stepper-btn" data-dec="${s.id}" type="button" aria-label="Decrease days">−</button>
+          <span>${days}d/wk</span>
+          <button class="stepper-btn" data-inc="${s.id}" type="button" aria-label="Increase days">+</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  el.querySelectorAll('[data-check]').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      const id = cb.dataset.check;
+      if(cb.checked){ enrollSelection[id] = 2; } else { delete enrollSelection[id]; }
+      renderEnrollList(); updateSummary();
+    });
+  });
+  el.querySelectorAll('[data-inc]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const id = b.dataset.inc;
+      enrollSelection[id] = Math.min(6,(enrollSelection[id]||2)+1);
+      renderEnrollList(); updateSummary();
+    });
+  });
+  el.querySelectorAll('[data-dec]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const id = b.dataset.dec;
+      enrollSelection[id] = Math.max(1,(enrollSelection[id]||2)-1);
+      renderEnrollList(); updateSummary();
+    });
+  });
+}
+
+function updateSummary(){
+  const linesEl = document.getElementById('summaryLines');
+  const ids = Object.keys(enrollSelection);
+  if(ids.length===0){
+    linesEl.innerHTML = `<div class="summary-row" style="color:var(--ink-soft);">No subjects selected yet</div>`;
+  }else{
+    linesEl.innerHTML = ids.map(id=>{
+      const s = SUBJECTS.find(x=>x.id===id);
+      const days = enrollSelection[id];
+      const monthly = days*4*PRICE_PER_CLASS;
+      return `<div class="summary-row"><span>${s.name} — ${days}d/wk</span><span>₹${monthly.toLocaleString('en-IN')}</span></div>`;
+    }).join('');
+  }
+  const total = ids.reduce((sum,id)=> sum + enrollSelection[id]*4*PRICE_PER_CLASS, 0);
+  document.getElementById('summaryTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+}
+
+/* ---------------- FAQ ---------------- */
+const FAQS = [
+  {q:'How many classes happen per week by default?', a:'Every subject defaults to 2 classes a week, 60 minutes each. You can increase this up to 6 days a week per subject — your price updates automatically.'},
+  {q:'Can I enroll for just one subject?', a:'Yes. Pick a single subject, or mix and match several — each one is scheduled and billed on its own.'},
+  {q:'Will I know what my child was taught each day?', a:'Yes — after every class, a short report is emailed to you covering the topic taught, how your child did, and anything to follow up on.'},
+  {q:'How do I get my invoice?', a:'A billed invoice is emailed to you for every payment, and the same record is kept on file so you can look it up anytime.'},
+];
+function renderFAQ(){
+  const el = document.getElementById('faqList');
+  el.innerHTML = FAQS.map((f,i)=>`
+    <div class="faq-item" data-i="${i}">
+      <div class="faq-q">${f.q}<span class="plus">+</span></div>
+      <div class="faq-a"><p style="margin:0;">${f.a}</p></div>
+    </div>
+  `).join('');
+  el.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click', ()=> item.classList.toggle('open'));
+  });
+}
+
+/* ---------------- MODAL ---------------- */
+document.getElementById('payBtn').addEventListener('click', ()=>{
+  document.getElementById('modalOverlay').classList.add('show');
+});
+document.getElementById('modalClose').addEventListener('click', ()=>{
+  document.getElementById('modalOverlay').classList.remove('show');
+});
+document.getElementById('modalOverlay').addEventListener('click', (e)=>{
+  if(e.target.id==='modalOverlay') e.currentTarget.classList.remove('show');
+});
+
+/* ---------------- INIT ---------------- */
+renderSubjectPicker();
+renderAll();
+renderSubjectGrid();
+renderEnrollList();
+updateSummary();
+renderFAQ();
+
+// heroSelection starts empty ({}) on every page load — 0 subjects, 0 classes/week, ₹0/month
+// until the user actively taps a subject in the Build Your Week widget.
+</script>
+</body>
+</html>
