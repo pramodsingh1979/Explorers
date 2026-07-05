@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  // Ensure clicking the logo (which calls location.reload()) always lands
+  // at the top of the page, since some browsers restore previous scroll
+  // position on reload by default.
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.addEventListener('load', function () {
+    window.scrollTo(0, 0);
+  });
+</script>
 <title>Find Your Voice — Spoken English & Communication Coaching</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,7 +177,7 @@
 
   /* ---------- PRICING ---------- */
   .pricing-grid{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
   }
   .price-card{
     background:var(--panel); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius);
@@ -336,12 +347,9 @@
   <div class="courses-box">
     <span class="eyebrow">Courses we offer</span>
     <div class="courses-list">
-      <div class="course-item"><span class="course-num mono">01</span><span>Spoken English</span></div>
-      <div class="course-item"><span class="course-num mono">02</span><span>Overcome Stage Fear</span></div>
-      <div class="course-item"><span class="course-num mono">03</span><span>Vocabulary Building</span></div>
-      <div class="course-item"><span class="course-num mono">04</span><span>Correct Pronunciation</span></div>
-      <div class="course-item"><span class="course-num mono">05</span><span>Extempore</span></div>
-      <div class="course-item"><span class="course-num mono">06</span><span>Group Discussion</span></div>
+      <div class="course-item"><span class="course-num mono">01</span><span>Foundational Speaking &amp; Communication</span></div>
+      <div class="course-item"><span class="course-num mono">02</span><span>Career &amp; Professional Communication</span></div>
+      <div class="course-item"><span class="course-num mono">03</span><span>Confidence &amp; Soft-Skills</span></div>
     </div>
   </div>
 </section>
@@ -373,22 +381,17 @@
       <span class="price-badge">Most popular</span>
       <span class="plan-name mono">3 Month</span>
       <div class="plan-amount">₹11,999<span>/- total</span></div>
-      <button class="plan-cta" onclick="openModal('3 Month plan — Rs. 11,999/-')">Choose this plan</button>
+      <button class="plan-cta" onclick="openModal('3 Month plan — Rs. 11,999/-', 'Foundational speaking &amp; communication')">Choose this plan</button>
     </div>
     <div class="price-card">
       <span class="plan-name mono">6 Month</span>
       <div class="plan-amount">₹20,999<span>/- total</span></div>
-      <button class="plan-cta" onclick="openModal('6 Month plan — Rs. 20,999/-')">Choose this plan</button>
+      <button class="plan-cta" onclick="openModal('6 Month plan — Rs. 20,999/-', 'Career &amp; Speaking Communication')">Choose this plan</button>
     </div>
     <div class="price-card">
       <span class="plan-name mono">9 Month</span>
       <div class="plan-amount">₹26,999<span>/- total</span></div>
-      <button class="plan-cta" onclick="openModal('9 Month plan — Rs. 26,999/-')">Choose this plan</button>
-    </div>
-    <div class="price-card">
-      <span class="plan-name mono">12 Month</span>
-      <div class="plan-amount">₹32,999<span>/- total</span></div>
-      <button class="plan-cta" onclick="openModal('12 Month plan — Rs. 32,999/-')">Choose this plan</button>
+      <button class="plan-cta" onclick="openModal('9 Month plan — Rs. 26,999/-', 'Speaking, Soft-Skills &amp; Career')">Choose this plan</button>
     </div>
   </div>
 </section>
@@ -423,7 +426,7 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
-    <h3>Book your free demo class</h3>
+    <h3 id="modalHeading">Book your free demo class</h3>
     <p class="sub">Fill this in — it opens WhatsApp with your details ready to send.</p>
     <form id="demoForm" onsubmit="submitDemo(event)">
       <div class="field">
@@ -434,25 +437,26 @@
         <label for="fphone">Phone / WhatsApp number</label>
         <input id="fphone" required placeholder="e.g. 98765 43210" inputmode="tel">
       </div>
-      <div class="field">
-        <label for="fsession">Which session interests you most?</label>
-        <select id="fsession">
-          <option>Spoken English Mastery</option>
-          <option>Overcoming Stage Fear</option>
-          <option>Vocabulary Building</option>
-          <option>Pronunciation Correction</option>
-          <option>Extempore Training</option>
-          <option>Group Discussion</option>
-          <option>Not sure — help me choose</option>
-        </select>
-      </div>
       <div class="field" id="planFieldWrap" style="display:none;">
         <label for="fplan">Selected plan</label>
         <input id="fplan" placeholder="">
       </div>
+      <div class="field" id="courseFieldWrap">
+        <label for="fcourse">Course Selected</label>
+        <select id="fcourse">
+          <option value="">Select a course</option>
+          <option value="Foundational speaking &amp; communication">Foundational speaking &amp; communication</option>
+          <option value="Career &amp; Speaking Communication">Career &amp; Speaking Communication</option>
+          <option value="Speaking, Soft-Skills &amp; Career">Speaking, Soft-Skills &amp; Career</option>
+        </select>
+      </div>
       <div class="field">
-        <label for="ftime">Preferred time for demo</label>
-        <input id="ftime" placeholder="e.g. Weekday evenings">
+        <label for="fdate">Preferred date for demo</label>
+        <input type="date" id="fdate">
+      </div>
+      <div class="field">
+        <label for="ftimeslot">Preferred time slot (30 min)</label>
+        <select id="ftimeslot"></select>
       </div>
       <button type="submit" class="modal-submit">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="#04220F"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.44 5.13L2 22l5.13-1.55a9.86 9.86 0 0 0 4.91 1.31h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Z"/></svg>
@@ -469,6 +473,34 @@
 </div>
 
 <script>
+  // ---- Demo date & time-slot setup ----
+  const dateInput = document.getElementById('fdate');
+  const todayStr = new Date().toISOString().split('T')[0];
+  dateInput.min = todayStr; // can't book a demo in the past
+
+  function formatSlot(hour24, minute){
+    const period = hour24 >= 12 ? 'PM' : 'AM';
+    let hour12 = hour24 % 12;
+    if (hour12 === 0) hour12 = 12;
+    const mm = minute === 0 ? '00' : '30';
+    return `${hour12}:${mm} ${period}`;
+  }
+
+  const timeSlotSelect = document.getElementById('ftimeslot');
+  for (let hour = 9; hour <= 19; hour++) {
+    for (const minute of [0, 30]) {
+      if (hour === 19 && minute === 30) continue; // stop at 7:00–7:30 PM start
+      const startLabel = formatSlot(hour, minute);
+      const endHour = minute === 30 ? hour + 1 : hour;
+      const endMinute = minute === 30 ? 0 : 30;
+      const endLabel = formatSlot(endHour, endMinute);
+      const opt = document.createElement('option');
+      opt.value = `${startLabel} – ${endLabel}`;
+      opt.textContent = `${startLabel} – ${endLabel}`;
+      timeSlotSelect.appendChild(opt);
+    }
+  }
+
   // ---- Session data ----
   const sessions = [
     { tag: "Track 01", title: "Spoken English Mastery", desc: "Move from translating in your head to thinking and speaking directly in English, using real conversations, not textbook drills." },
@@ -517,16 +549,27 @@
   }
 
   // ---- Modal + WhatsApp-linked booking ----
-  function openModal(planName){
+  function openModal(planName, courseText){
     document.getElementById('modalOverlay').classList.add('open');
     const planField = document.getElementById('fplan');
     const planWrap = document.getElementById('planFieldWrap');
+    const courseField = document.getElementById('fcourse');
+    const heading = document.getElementById('modalHeading');
     if (planName) {
       planField.value = planName;
       planWrap.style.display = 'block';
     } else {
       planField.value = '';
       planWrap.style.display = 'none';
+    }
+    if (courseText) {
+      courseField.value = courseText;
+      courseField.disabled = true;
+      heading.textContent = courseText;
+    } else {
+      courseField.value = '';
+      courseField.disabled = false;
+      heading.textContent = 'Book your free demo class';
     }
   }
   function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
@@ -542,12 +585,17 @@
     }
     const name = document.getElementById('fname').value.trim();
     const phone = document.getElementById('fphone').value.trim();
-    const session = document.getElementById('fsession').value;
     const plan = document.getElementById('fplan').value.trim();
-    const time = document.getElementById('ftime').value.trim() || 'Flexible';
-    let msg = `Hi! I'd like to book a free demo class.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AInterested session: ${encodeURIComponent(session)}`;
+    const course = document.getElementById('fcourse').value.trim();
+    const time = document.getElementById('fdate').value
+      ? `${document.getElementById('fdate').value} (${document.getElementById('ftimeslot').value})`
+      : 'Flexible';
+    let msg = `Hi! I'd like to book a free demo class.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}`;
     if (plan) {
       msg += `%0APlan selected: ${encodeURIComponent(plan)}`;
+    }
+    if (course) {
+      msg += `%0ACourse selected: ${encodeURIComponent(course)}`;
     }
     msg += `%0APreferred time: ${encodeURIComponent(time)}`;
     const url = `https://wa.me/919999323479?text=${msg}`;
